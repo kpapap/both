@@ -17,8 +17,7 @@ const (defaultConfigMapName = "nbcmr-cm")
 func NewFactory() receiver.Factory {
 	return receiver.NewFactory(
 		typeStr,
-		createWhitelistDefaultConfig,
-		createNbcmrDefaultConfig,
+		createDefaultConfig,
 		receiver.WithLogs(createWhitelistLogsReceiver, component.StabilityLevelUndefined),
 		receiver.WithLogs(createNbcmrLogsReceiver, component.StabilityLevelUndefined),
 	)
@@ -49,7 +48,7 @@ func createNbcmrLogsReceiver(_ context.Context, settings receiver.Settings, cfg 
 }
 
 // createDefaultConfig returns the default configuration for the nbcmr receiver.
-func createNbcmrDefaultConfig() component.Config {
+func createDefaultConfig() component.Config {
 	return &Config{
 		Interval: defaultInterval,
 		ConfigMapName: defaultConfigMapName,
