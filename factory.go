@@ -8,9 +8,10 @@ import (
 	"go.opentelemetry.io/collector/receiver"
 )
 
-const (defaultInterval = "1m")
 var (typeStr = component.MustNewType("both"))
-const (defaultNbcmrInterval = "1m")
+
+const (defaultInterval = "1m")
+const (defaultHttpInterval = "1m")
 const (defaultConfigMapName = "nbcmr-cm")
 
 // NewFactory creates a new receiver factory.
@@ -21,15 +22,6 @@ func NewFactory() receiver.Factory {
 		receiver.WithLogs(createWhitelistLogsReceiver, component.StabilityLevelUndefined),
 		receiver.WithLogs(createNbcmrLogsReceiver, component.StabilityLevelUndefined),
 	)
-}
-
-// createDefaultConfig returns the default configuration for the  receiver.
-// This function is used when creating a new factory to provide a default configuration
-// for the receiver.
-func createWhitelistDefaultConfig() component.Config {
-	return &Config{
-		Interval: defaultInterval,
-	}
 }
 
 // createLogsReceiver creates a new instance of the logs receiver.
@@ -51,6 +43,7 @@ func createNbcmrLogsReceiver(_ context.Context, settings receiver.Settings, cfg 
 func createDefaultConfig() component.Config {
 	return &Config{
 		Interval: defaultInterval,
+		HttpInterval: defaultHttpInterval,
 		ConfigMapName: defaultConfigMapName,
 	}
 }
